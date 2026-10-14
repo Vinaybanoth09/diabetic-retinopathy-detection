@@ -1,59 +1,54 @@
-# diabetic-retinopathy-detection
-Deep learning-based diabetic retinopathy severity grading using retinal fundus images, transfer learning, model evaluation, and explainable AI.
+# Diabetic Retinopathy Classification Using Deep Learning
 
-# Diabetic Retinopathy Detection Using Deep Learning
-
+An experimental deep learning project for five-class diabetic retinopathy classification from retinal fundus images.
 
 ## Overview
+- Dataset: APTOS 2019 Blindness Detection
+- Framework: PyTorch
+- Models: ResNet50, Class-Weighted ResNet50, EfficientNet-B0
+- Explainability: Grad-CAM
+- Demo: Gradio
 
-This project aims to develop a deep learning pipeline for grading diabetic retinopathy severity from retinal fundus images using the APTOS 2019 Blindness Detection dataset.
+## Severity Grades
+- Grade 0: No DR
+- Grade 1: Mild
+- Grade 2: Moderate
+- Grade 3: Severe
+- Grade 4: Proliferative DR
 
-The goal is to compare convolutional neural network architectures, evaluate classification performance, investigate class imbalance, and interpret model predictions using Grad-CAM.
+## Methodology
+1. Create a stratified 80/20 train-validation split using random state 42.
+2. Resize images to 224x224 and normalize using ImageNet statistics.
+3. Fine-tune pretrained CNN architectures.
+4. Evaluate using accuracy, macro F1-score, and quadratic weighted kappa.
+5. Use Grad-CAM to visualize influential image regions.
 
-## Objectives
+## Validation Results
+| Model | Accuracy | Macro F1 | Quadratic Weighted Kappa |
+|---|---:|---:|---:|
+| ResNet50 | 0.8063 | 0.6385 | 0.8659 |
+| Class-Weighted ResNet50 | 0.8104 | 0.6381 | 0.8481 |
+| EfficientNet-B0 | 0.8104 | 0.6490 | 0.8742 |
 
-- Perform exploratory data analysis and retinal image preprocessing.
-- Develop a baseline image classification model using PyTorch.
-- Compare pretrained CNN architectures such as ResNet50, EfficientNet, and InceptionV3.
-- Evaluate models using accuracy, macro F1-score, confusion matrices, and quadratic weighted kappa.
-- Investigate methods for improving performance on underrepresented severity classes.
-- Visualize model predictions using Grad-CAM.
-- Build a simple interface for testing the trained model.
+EfficientNet-B0 achieved the highest macro F1-score and quadratic weighted kappa among these evaluated checkpoints.
 
-## Planned Tech Stack
+## Repository Structure
+- src/: inference and application code
+- results/: evaluation metrics
+- visualizations/: Grad-CAM images
+- docs/: additional documentation
 
-- Python
-- PyTorch and Torchvision
-- NumPy and Pandas
-- OpenCV
-- Scikit-learn
-- Matplotlib
-- Grad-CAM
-- Google Colab
+## Setup
+Install dependencies with: pip install torch torchvision pandas numpy pillow matplotlib scikit-learn opencv-python-headless gradio
 
-## Dataset
+Download the APTOS 2019 dataset from Kaggle separately. Dataset images and model checkpoints are not included in this repository.
 
-APTOS 2019 Blindness Detection — Kaggle.
+## Limitations
+- Evaluation uses a single stratified validation split.
+- Minority-grade performance remains challenging.
+- Softmax scores are not calibrated clinical probabilities.
+- Grad-CAM does not prove medical reasoning.
+- Independent external clinical validation has not been performed.
 
-Dataset access: https://www.kaggle.com/competitions/aptos2019-blindness-detection
-
-The dataset contains retinal fundus images labeled with five diabetic retinopathy severity grades, from 0 (No DR) to 4 (Proliferative DR).
-
-Dataset images and labels will be handled according to the applicable dataset terms.
-
-## Project Structure
-
-```text
-diabetic-retinopathy-detection/
-├── notebooks/
-├── src/
-├── outputs/
-├── requirements.txt
-├── .gitignore
-└── README.md
-```
-
-
-## Disclaimer
-
-This is an educational machine learning project, not a clinically validated diagnostic system. Model predictions must not be used as a substitute for professional medical evaluation.
+## Intended Use
+For educational and research purposes only. This project is not intended for clinical diagnosis or treatment decisions.
