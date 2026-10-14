@@ -1,0 +1,4 @@
+Model,Accuracy,Macro_F1,Quadratic_Weighted_Kappa
+ResNet50,0.8063,0.6385,0.8659
+Class-Weighted ResNet50,0.8104,0.6381,0.8481
+EfficientNet-B0,0.8104,0.649,0.8742
